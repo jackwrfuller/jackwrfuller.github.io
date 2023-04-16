@@ -23,6 +23,7 @@ footer = "Copyright © 2023 Jack W R Fuller. All rights reserved."
 mathjax = true
 menu = [
     { name= "/about", url= "/about", weight=1 },
+    { name= "/resume", url= "/resume", weight=1 },
 ]
 
 socials = [
