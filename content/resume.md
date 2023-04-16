@@ -10,6 +10,11 @@ path = "resume"
 
 # Education
 
+### Master of Computing - The Australian National University
+
+### Bachelor of Finance, Economics, and Statistics (Honours)
+- Graduated with First Class Honours in Statistics with a 6.8 GPA.
+
 # Work Experience
 
 # Awards
