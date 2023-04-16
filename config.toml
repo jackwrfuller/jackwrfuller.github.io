@@ -33,5 +33,5 @@ socials = [
 ]
 
 stylesheets = [
-    "Override.css",
+    "override.css",
 ]
