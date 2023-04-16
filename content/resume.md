@@ -14,6 +14,7 @@ of Computing at the Australian National University. I currently hold a Baseline 
 # Education
 
 **Master of Computing - The Australian National University**
+- Specialising in Computational Foundations
 
 **Bachelor of Finance, Economics, and Statistics (Honours)**
 - Graduated with First Class Honours in Statistics with a 6.8 GPA.
