@@ -6,7 +6,7 @@ path = "resume"
 
 ## Resume
 <object data="https://github.com/jackwrfuller/jackwrfuller.github.io/blob/main/content/pdfs/resume.pdf" type="application/pdf" width="700px" height="700px">
-    <embed src="http://yoursite.com/the.pdf">
+    <embed src="https://github.com/jackwrfuller/jackwrfuller.github.io/blob/main/content/pdfs/resume.pdf">
         <p>This browser does not support PDFs. Please download the PDF to view it: <a href="https://github.com/jackwrfuller/jackwrfuller.github.io/blob/main/content/pdfs/resume.pdf">Download PDF</a>.</p>
     </embed>
 </object>
