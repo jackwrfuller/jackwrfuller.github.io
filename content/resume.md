@@ -8,4 +8,4 @@ path = "resume"
 <embed src="/content/pdfs/resume.pdf" type="application/pdf">
 
 
-<iframe width="100%" height="800" src="/content/pdfs/resume.pdf">
+<iframe width="100%" height="800" src="/content/pdfs/resume.pdf"></iframe>
