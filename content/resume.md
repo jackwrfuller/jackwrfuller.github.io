@@ -12,5 +12,9 @@ path = "resume"
 
 # Work Experience
 
+# Awards
+
+# Publications
+
 
 
