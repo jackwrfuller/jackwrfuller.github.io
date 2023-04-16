@@ -5,4 +5,4 @@ path = "resume"
 +++ 
 
 ## Resume
-<iframe width="100%" height="800" src="path-to-pdf">
+<iframe width="100%" height="800" src="/content/pdfs/resume.pdf">
