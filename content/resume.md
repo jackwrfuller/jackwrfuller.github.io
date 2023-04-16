@@ -4,10 +4,10 @@ date = "2023-04-16"
 path = "resume"
 +++ 
 
-## Resume
+# Resume
 [Download PDF](https://github.com/jackwrfuller/jackwrfuller.github.io/blob/main/content/pdfs/resume.pdf)
 
-
+## Heading 1
 
 
 
