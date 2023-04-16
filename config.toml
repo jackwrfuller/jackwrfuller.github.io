@@ -1,0 +1,31 @@
+# The URL the site will be built for
+base_url = "https://jackwrfuller.github.io/"
+title = "jackwrfuller"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = true
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = false
+
+theme = "apollo"
+[markdown]
+# Whether to do syntax highlighting
+# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
+highlight_code = true
+highlight_theme = "two-dark"
+
+[extra]
+# Put all your custom variables here
+theme = "dark"
+favicon = "icon/favicon.png"
+footer = "Copyright © 2023 Sebastian Müller. All rights reserved."
+mathjax = true
+menu = [
+    { name= "/about", url= "/about", weight=1 },
+]
+
+socials = [
+    { name= "github", url= "https://github.com/jackwrfuller/", icon="github" },
+    { name= "linkedin", url="https://www.linkedin.com/in/jackwrfuller/", icon="linkedin" },
+]
