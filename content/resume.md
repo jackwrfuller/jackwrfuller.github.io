@@ -7,6 +7,8 @@ path = "resume"
 # Resume
 [Download PDF](https://github.com/jackwrfuller/jackwrfuller.github.io/blob/main/content/pdfs/resume.pdf)
 
+<a id="raw-url" href="https://raw.githubusercontent.com/jackwrfuller/jackwrfuller.github.io/main/content/pdfs/resume.pdf">Download PDF</a>
+
 ## Heading 1
 
 
