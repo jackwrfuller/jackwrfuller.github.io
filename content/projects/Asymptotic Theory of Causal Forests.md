@@ -1,7 +1,11 @@
-+++ 
-title = "Asymptotic Theory of Causal Forests" description = "Using probability theory to analyse the behaviour of random forests." weight = 1
++++
+title = "Apollo"
+description = "Modern and minimalistic blog theme."
+weight = 1
 
-[extra] local_image = "/projects/forest.jpg"
+[extra]
+local_image = "/projects/project-1.jpg"
+link_to = "https://github.com/not-matthias/apollo"
 +++
 
-Article about my thesis will go here.
+Example project page
