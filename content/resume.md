@@ -47,7 +47,21 @@ creatively to seek solutions.
 
 # Awards
 
+- 2022 | Australian Signals Directorate, Co‑Lab Honours Grant
+- 2022 | ANU, Research School of Finance, Actuarial Studies and Statistics Honours Scholarship
+- 2020 | ANU, Chancellor’s Letter of Commendation for outstanding academic performance
+- 2019 | ANU, Chancellor’s Letter of Commendation
+- 2019 | ANU, College of Business and Economics National Excellence Scholarship for academic excellence
+- 2017 | Hawker College, Dux with 99.7 ATAR
+- 2017 | Public Education Foundation, Capital Chemist Academic Excellence Scholarship
+- 2017 | National Mathematics Summer School, One of 75 students nationally selected to attend
+- 2015 | Canberra High School, Dux
+- 2015 | Australian Mathematics Trust, Australian Mathematics Competition High Distinction and Prudence Award
+
 # Publications
+
+**2022 | Asymptotic Theory of Random Forests with Extensions to Causal Inference**
+- Supervised by Dr Gen Nowak and Prof Alan Welsh, Fellow of the Australian Academy of Science Currently in the process of seeking publication
 
 
 
