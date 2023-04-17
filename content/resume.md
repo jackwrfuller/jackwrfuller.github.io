@@ -13,19 +13,37 @@ of Computing at the Australian National University. I currently hold a Baseline 
 
 # Education
 
-**Master of Computing - The Australian National University**
+**Master of Computing | The Australian National University**
 - Specialising in Computational Foundations
 
-**Bachelor of Finance, Economics, and Statistics (Honours)**
+**Bachelor of Finance, Economics, and Statistics (Honours) | The Australian National University**
 - Graduated with First Class Honours in Statistics with a 6.8 GPA.
 
-**Specialist Mathematics Extension - The Australian National University**
+**Specialist Mathematics Extension | The Australian National University**
 - Graduated with 7.0 GPA and 94.5 WAM.
 
-**Year 12 Certificate - Hawker College**
+**Year 12 Certificate | Hawker College**
 - Graduated as Dux with 99.7 ATAR
 
 # Work Experience
+
+**Digital Project Officer | The Mark Agency**
+- Responsible for the end‑to‑end delivery of front‑end web development solutions.
+
+**Analyst | McGrathNicol**
+- Assisted with a range of engagements, specifically with Government departments and agencies including compliance audit, financial viability
+assessments, governance, and data analysis.
+- Assisted with a project that used python to automatically create documents for internal use.
+
+**Tutor | Research of Finance, Actuarial Studies and Statistics**
+- Assisted in delivering the ‘Investments’ course at the ANU. As part of this role, I was responsible for the preparation and delivery of tutorial classes to undergraduate and postgraduate students on a weekly basis. In addition to teaching, my other duties include providing consultations
+to students, marking, and the preparation of assignments and exams.
+
+**Learning Support Assistant | ACT Education Directorate**
+- Supported and liaised with teaching professionals in the provision of education programs for primary school aged students, specifically those.
+with high needs such as autism, physical disabilities, and trauma
+- Developed people problem solving skills from facing challenging student behaviours, from which the role taught me to think laterally and
+creatively to seek solutions.
 
 # Awards
 
