@@ -4,7 +4,7 @@ description = "Using probability theory to analyse the behaviour of random fores
 weight = 1
 
 [extra]
-local_image = "/projects/images/forest.jpg"
+local_image = "/projects/projects-1.jpg"
 +++
 
 Example project page
