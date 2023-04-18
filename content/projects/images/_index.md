@@ -1,1 +1,3 @@
-+++ [extra] section_path = "images/_index.md" +++
++++
+[extra] section_path = "images/_index.md"
++++
