@@ -8,3 +8,5 @@ local_image = "rabbits-and-foxes.png"
 +++
 
 Example project page
+
+[image](rabbits-and-foxes.jpg)
