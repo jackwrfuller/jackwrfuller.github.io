@@ -7,6 +7,6 @@ weight = 1
 local_image = "rabbits-and-foxes.png"
 +++
 
-Example project page
+Example project page test
 
-![image](rabbits-and-foxes.jpg)
+[image](rabbits-and-foxes.jpg)
