@@ -1,7 +1,7 @@
 
 +++
-title = "Turning Java Files Into an Executable in 2023"
-date = "2023-04-18"
+title = "Turning JavaFX Into an Executable in 2023"
+date = "2023-05-14"
 +++
 
 # Title
