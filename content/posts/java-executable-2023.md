@@ -6,6 +6,6 @@ date = "2023-05-14"
 
 # Title
 
-In my university course this semester, I was tasked with creating a JavaFX game. As this was my first big project, this was a difficult but rewarding challenge. 
+In my university course this semester, I was tasked with creating a JavaFX game. As this was my first big project, this was a difficult but rewarding challenge where I learned so much. While I go into more detail about the project [here](https://google.com.au) 
 
 
