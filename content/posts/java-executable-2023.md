@@ -18,7 +18,7 @@ For the sake of reproducibility, here is my set up:
 There are many great tutorials for the installation of the above, so I wont go into it here. Furthermore, you will need [Launch4J](https://launch4j.sourceforge.net/), which is my solution for converting jar files to windows executables.
 
 # From Java to Jar
-You might think that building a jar file, especially in a modern IDE such as IntelliJ, would be trivial. Perhaps in a normal case without JavaFX, this would be the case. However, for whatever reason, JavaFX definitely throws a spanner in the works. First, navigate to 
+You might think that building a jar file, especially in a modern IDE such as IntelliJ, would be trivial. Perhaps in a normal case without JavaFX, this would be the case. However, for whatever reason, JavaFX definitely throws a spanner in the works. First, navigate to `File` -> `Project Structure`
 
 
 
