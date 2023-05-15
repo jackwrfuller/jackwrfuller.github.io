@@ -4,7 +4,7 @@ date = "2023-04-16"
 path = "resume"
 +++ 
 
-<a href="resume/resume.pdf" target="_blank">Download PDF</a>
+<a href="resume.pdf" target="_blank">Download PDF</a>
 
 # Summary
 Recent graduate with First Class Honours in Statistics, currently working as a Digital Projects Manager. I have a passion for mathematics, computers,
