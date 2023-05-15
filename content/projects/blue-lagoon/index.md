@@ -5,10 +5,12 @@ weight = 1
 date = 2023-05-14
 
 [extra]
-local_image = "/projects/asymptotic-theory-of-causal-forests/forest.jpg"
+local_image = "/projects/blue-lagoon/bluelagoon.jpg"
 +++
 
-![image](forest.jpg)
+<p align="center" width="100%">
+    <img width="100%" src="bluelagoon.jpg">
+</p>
 
 ## Into the deepend
 
