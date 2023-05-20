@@ -12,9 +12,15 @@ local_image = "/projects/blue-lagoon/bluelagoon.jpg"
     <img width="100%" src="bluelagoon.jpg">
 </p>
 
+## Resources
+
+- Project Github (coming soon)
+- <a href="BlueLagoon.jar" target="_blank">Jar File</a>
+- <a href="BlueLagoon.exe" target="_blank">Windows Executable</a>
+
 ## Into the deepend
 
-As part of my journey to become an expert engineer, I am currently enrolled in a Masters of Computing at the ANU which I attend remotely. The first course I took had a major group assignment that tasked us to build in Java - using the JavaFX engine - the (perhaps) little-known board game [*Blue Lagoon*](https://blueorangegames.eu/en/games/blue-lagoon/) by Reiner Knizia. The main purpose of this project was to cut our teeth on building larger scale projects involving multiple contributors while honing our object-oriented skills. Ironically, and not surprising at all to anyone who has done a university group assignment, my group members all went completely MIA very quickly. In short, I was left to make this game all by myself. While I have done a good deal of programming throughout my undergraduate years and on a hobbyist level, this was my first time building and persevering with a major project like this. And boy, did I learn some lessons.
+As part of my journey to become an expert engineer, I am enrolled in a Masters of Computing at the ANU which I attend remotely. The first course I took had a major group assignment that tasked us to build in Java - using the JavaFX engine - the (perhaps) little-known board game [*Blue Lagoon*](https://blueorangegames.eu/en/games/blue-lagoon/) by Reiner Knizia. The main purpose of this project was to cut our teeth on building larger scale projects involving multiple contributors while honing our object-oriented skills. Ironically, and not surprising at all to anyone who has done a university group assignment, my group members all went completely MIA very quickly. In short, I was left to make this game all by myself. While I have done a good deal of programming throughout my undergraduate years and on a hobbyist level, this was my first time building and persevering with a major project like this. And boy, did I learn some lessons.
 
 As this was by no means my first time writing code, I was already familiar with [Hofstadter's law](https://en.wikipedia.org/wiki/Hofstadter%27s_law):
 
