@@ -34,4 +34,29 @@ Furthermore, given my heretofore limited experience in software architecture, th
 
 Well, after all that wandering I have something to show for it: a game! Though unfortunately, not really. Due to time constraints (I work full-time) I was unable to fully flesh out the project and deliver a working game, at least for the moment. I made enough progress that I am proud of what I accomplished, and want to move on. Thus I felt comfortable sharing what I have made, regardless of how undercooked it is. The skills I have developed along the way will propel me to bigger and better projects. 
 
-In this article I want to share some of the learnings I took 
+In this article I want to share some of the learnings I took away from this project, and so I've settled on three main takeaways.
+
+## Software is like writing a maths proof
+
+I know what you're probably thinking, so I apologise for the wankishness of that statement. However, I do really feel like it is true, as solving proofs (like writing software) is like fighting a dragon. For those who have never attempted tough proof-based mathematics before, that probably sounds like an incredibly ridiculous and self-aggrandising thing to say. Yet it is real. 
+
+My favourite mathematician, Dr Griffith Ware, first showed me a cartoon many years ago that I wish I could find now. In it, a lone mathematician stands in front of a towering dragon, with no weapons besides a pen and paper. The reason for this metaphor is that solving mathematical conundrums often feels like pitting yourself an entity that can fight back. It doesn't give up easily, it surprises you - and worst of all - it can lure you in with false promises, only to dash your hopes. It can feel like writhing beast, resistant to any attempts to control it. However in the end, you slay it.
+
+This experience I found was not dissimilar to writing code. You think it will be easy, and that the concepts in your head will translate nicely to pixels on a screen. However, more likely is the case that it fights back as well, and does not yield until significant effort is exerted. Like proofs, solving problems with code can sometimes take many implementations and iterations to find an approach that works. 
+
+But hey, easy done is no fun. 
+
+## Software is about people
+
+I currently work as a project manager. In this role I have to, among other things, deal with people. Being effective in my role means not just understanding the project requirements and the client needs, but the personalities, desires, dislikes, and capabilities of the development team. I've come to see that being successful here necessitates good people skills. On the other hand, completing this Blue Lagoon project has shown me what the other end of the spectrum looks like: a one-man shop. My would-be group member fucked off and fucked off early, so I built the game, for better or for worse, by myself. 
+
+While this did mean I could not get as much done as other groups, this was not the actually disappointing thing for me. What it did was rob me of the opportunity to experience the triumphs and tribulations of team-based software development, and all the quirks that go along with it. I did not get to learn from others, be exposed to new approaches, nor see how to do things better. What I did develop however, was a keen sense of the *value* of other people. Going it alone can be easy at first because you avoid conflict, but in reality, you sell yourself short.
+
+
+## It takes longer time than you think, but also less
+
+The third and final takeaway is a lesson in incrementality. To all the experienced developers out there, I'm sure this one comes to you as a great surprise. While I am no stranger to having an Agile mindset, I thought this project highlighted the contradictory statement's truth. Sure, it took me a month and a half to make something not even complete. Yet by finding small gaps of time here and there to make small progress, I was able to complete much more than I thought I was going to be able to. It reminds me of one of my favourite quotes, the ancient proverb that divines:
+
+> The best time to plant a tree is 20 years ago. The next best time is today. 
+
+And so it is with development, personal and software-related. While I dislike the hare and the tortoise fable generally, unfortunately it feels relevant here. Making those small advances, wherever and whenever possible, is everything. Or at least, I hope so.  
