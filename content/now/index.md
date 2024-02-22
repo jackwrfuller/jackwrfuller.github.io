@@ -1,7 +1,14 @@
 +++
 title="/now"
 path="now"
+
+[extra]
+local_image = "/now/fam.jpg"
 +++
+
+<p align="center" width="100%">
+    <img width="50%" src="fam.jpg">
+</p>
 
 Inspired by [Jamie Tanna](https://www.jvt.me)'s /now page, the purpose of this page is to share what things I am currently up to. As someone I read once said, the idea is to include those things you would tell a friend when catching up after not seeing them for a year. As far as I can tell, this idea stems originally from Derek Siver's post, '[The /now page movement](https://sive.rs/nowff)'.
 
