@@ -1,8 +1,11 @@
 +++
 title = "About"
 path = "about"
+
+[extra]
+local_image = "/about/portrait.jpg"
 +++
-<p align="center" width="100%">
+<p align="center" width="50%">
     <img width="100%" src="portrait.jpg">
 </p>
 
