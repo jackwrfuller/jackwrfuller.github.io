@@ -6,7 +6,7 @@ path = "about"
 local_image = "/about/portrait.jpg"
 +++
 <p align="center" width="50%">
-    <img width="100%" src="portrait.jpg">
+    <img width="25%" src="portrait.jpg">
 </p>
 
 I am a project manager with a passion for mathematics and computing and excel at managing digital projects that require both technical expertise and strong management skills. I have a first-class honours degree in mathematical statistics and am currently pursuing a computer science masters, which gives me a deep understanding of the quantitative underpinnings of technology.
