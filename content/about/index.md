@@ -9,6 +9,16 @@ local_image = "/about/portrait.jpg"
     <img width="25%" src="portrait.jpg">
 </p>
 
-I am a project manager with a passion for mathematics and computing and excel at managing digital projects that require both technical expertise and strong management skills. I have a first-class honours degree in mathematical statistics and am currently pursuing a computer science masters, which gives me a deep understanding of the quantitative underpinnings of technology.
+Mathematician by training, software engineer by trade.
 
-My thesis was focused on the mathematical properties of a machine learning model called random forests, giving me hands-on experience in applying advanced statistical techniques to real-world problems. I bring this same attention to detail and analytical rigor to every project I undertake, ensuring that they are delivered on time, on budget, and to the highest quality standards. Combining my strong quantitative background with my ability to manage people and projects, I am committed to achieving excellence in everything I do.
+I am driven by an insatiable curiosity of the world, trying to learn new things every day. 
+
+I love solving problems - any problems will do, but the more technical, the better.
+
+A complete computer nerd that wishes he was a professional tennis player.
+
+An amateur chess tragic holding on to the belief he may yet one day reach master strength
+
+Whisky enthusiast - neat, with a splash of water, and smokier than a peat oven.
+
+I am always keen to chat with new people. If you are feeling gregarious, drop me an email at [hi@jackwrfuller.au](mailto:hi@jackwrfuller.au)
