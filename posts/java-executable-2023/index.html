@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+
+    
+    
+    
+    <title>
+         Turning JavaFX Into an Executable in 2023
+        
+    </title>
+
+        
+            <meta property="og:title" content="Turning JavaFX Into an Executable in 2023" />
+        
+     
+
+     
+         
+     
+
+     
+         
+    
+
+    
+    
+        <link rel="icon" type="image/png" href=icon&#x2F;favicon.png />
+    
+
+    
+    
+        <link href=https://jackwrfuller.au/fonts.css rel="stylesheet" />
+    
+
+    
+    
+
+
+    
+        
+            <script>
+            MathJax = {
+              tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+              }
+            };
+            </script>
+        
+        <script type="text/javascript" id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+    
+
+    
+    <link rel="alternate" type="application/atom+xml" title="jackwrfuller" href="https://jackwrfuller.au/atom.xml">
+
+    
+    
+    
+        <link rel="stylesheet" type="text/css" href="https://jackwrfuller.au/theme/dark.css"/>
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://jackwrfuller.au/main.css />
+
+
+    
+        
+            <link rel="stylesheet" href="https://jackwrfuller.au/override.css">
+        
+    
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <style>
+    .avatar {
+      vertical-align: middle;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+    }
+    #wrapper {
+        width: 100%;
+        clear: both;
+        text-align: center;
+    }
+    </style>
+    <div class="main">
+        <a href=https:&#x2F;&#x2F;jackwrfuller.au&#x2F;>jackwrfuller</a>
+        <div class="socials">
+            
+            <a rel="me" href="https:&#x2F;&#x2F;github.com&#x2F;jackwrfuller&#x2F;" class="social">
+                <img alt=github src="/social_icons/github.svg">
+            </a>
+            
+            <a rel="me" href="https:&#x2F;&#x2F;gitlab.com&#x2F;jackwrfuller" class="social">
+                <img alt=gitlab src="/social_icons/gitlab.svg">
+            </a>
+            
+            <a rel="me" href="https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;jackwrfuller&#x2F;" class="social">
+                <img alt=linkedin src="/social_icons/linkedin.svg">
+            </a>
+            
+        </div>
+    </div>
+    <nav style="margin-bottom: 3rem">
+        
+            <a href=&#x2F;about style="margin-left: 0.7em; margin-bottom: 0.5em">&#x2F;about</a>
+        
+            <a href=&#x2F;now style="margin-left: 0.7em; margin-bottom: 0.5em">&#x2F;now</a>
+        
+            <a href=&#x2F;projects style="margin-left: 0.7em; margin-bottom: 0.5em">&#x2F;projects</a>
+        
+    </nav>
+    <div id="wrapper">
+        <a href=https:&#x2F;&#x2F;jackwrfuller.au&#x2F;>
+            <img src="https://github.com/jackwrfuller.png" class="avatar" />
+        </a>
+    </div>
+</header>
+
+        
+        
+    
+<main>
+    <article>
+        <div class="title">
+            
+            
+    <div class="page-header">
+        Turning JavaFX Into an Executable in 2023<span class="primary-color" style="font-size: 1.6em">.</span>
+    </div>
+
+
+                <div class="meta">
+                    
+                        Posted on <time>2023-05-14</time>
+                    
+
+                    
+                </div>
+        </div>
+
+        
+
+        
+        
+
+        <section class="body">
+            <p>In my university course this semester, I was tasked with creating a JavaFX game. As this was my first big project, this was a difficult but rewarding challenge where I learned so much. While I go into more detail about the project <a href="https://jackwrfuller.github.io/projects/blue-lagoon">here</a>, I wanted to share some of the smaller things I learned while embarking on this journey so that one day someone out there will not have to spend the same ridiculous hours troubleshooting and furiously googling that I did.</p>
+<p>As it turned out, one of the most surprising tasks in terms of its difficulty was turning the JavaFX game first into a jar file, and then an executable. Early on in the project, I thought it would be cool to turn the game into a standalone application - you know, like a proper game. Since I am developing on a Windows machine, this was a .exe file. I thought to myself that it would be a matter of pressing some button in IntelliJ (my IDE). Oh boy, how wrong I was. So, in the hope to save some poor soul the tribulations I did, I want to share how to turn a JavaFX project in IntelliJ into an exe file. </p>
+<h1 id="my-set-up">My set up</h1>
+<p>For the sake of reproducibility, here is my set up:</p>
+<ul>
+<li>Windows 10</li>
+<li>Java 17 (OpenJDK 17.0.6)</li>
+<li>JavaFX 17.0.6</li>
+<li>IntelliJ IDEA 2022.3.2 (Ultimate Edition)</li>
+</ul>
+<p>There are many great tutorials for the installation of the above, so I wont go into it here. Furthermore, you will need <a href="https://launch4j.sourceforge.net/">Launch4J</a>, which is my solution for converting jar files to windows executables.</p>
+<h1 id="from-java-to-jar">From Java to Jar</h1>
+<p>You might think that building a jar file, especially in a modern IDE such as IntelliJ, would be trivial. Perhaps in a normal case without JavaFX, this would be the case. However, for whatever reason, JavaFX definitely throws a spanner in the works. </p>
+<p><strong>1. Create a Launcher class:</strong> For some reason that isnt clear to me, the method developed in this how-to only works if we launch our jar from a separate 'launcher' class rather than directly from the main JavaFX class. First, we have to add the following main method to the main game class:</p>
+<pre data-lang="java" style="background-color:#282c34;color:#abb2bf;" class="language-java "><code class="language-java" data-lang="java"><span> </span><span style="color:#c678dd;">public static</span><span> void </span><span style="color:#e06c75;">main</span><span>(</span><span style="color:#e5c07b;">String</span><span style="color:#c678dd;">[]</span><span> args) {
+</span><span>        </span><span style="color:#e06c75;">launch</span><span>(args);
+</span><span>    }
+</span></code></pre>
+<p>When this <code>main()</code> method is called, it starts the application. Next, create a new class <em>in the same directory</em> called <code>Launcher</code>, and give it only one method:</p>
+<pre data-lang="java" style="background-color:#282c34;color:#abb2bf;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#c678dd;">public class </span><span style="color:#e5c07b;">Launcher </span><span>{
+</span><span>    </span><span style="color:#c678dd;">public static void </span><span style="color:#61afef;">main</span><span>(</span><span style="color:#e5c07b;">String</span><span style="color:#c678dd;">[] </span><span style="color:#e06c75;">args</span><span>) {
+</span><span>        </span><span style="color:#e5c07b;">Game</span><span>.</span><span style="color:#e06c75;">main</span><span>(args);
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>Where <code>Game</code> is of course the main game class. To test the set up is working so far, run <code>Launcher.main()</code>; if all is well, the game should run as normal.</p>
+<p><strong>2. Create and build the artifact:</strong>
+Now we must create a Java artifact which once built will give us our jar file. First, navigate to <code>File</code> -&gt; <code>Project Structure</code>. This will take you to a pop-up menu, where you must click on <code>Artifacts</code> under <code>Project Settings</code>.</p>
+<p align="center" width="100%">
+    <img width="50%" src="pic2.PNG">
+</p>
+<p>Then click the &quot;+&quot; -&gt; &quot;JAR&quot; -&gt; &quot;From modules with dependencies&quot;: </p>
+<p align="center" width="100%">
+    <img width="50%" src="pic3.png">
+</p>
+<p>This will prompt you to select the <code>Main Class</code>. In our case, we will use the <code>Launcher</code> class we made earlier.</p>
+<p align="center" width="100%">
+    <img width="50%" src="pic4.PNG">
+</p>
+<p>Next, the devious step: if you leave it as is, the jar file made will not run and throw a whole bunch of errors. It turns out we must manually add in the whole <code>bin</code> directory of our JavaFX installation. On my machine this is located in a &quot;.jdks&quot; file, but for you it could be elsewhere. To do this click on the &quot;+&quot; -&gt; &quot;Directory Content&quot;: </p>
+<p align="center" width="100%">
+    <img width="50%" src="pic5.png">
+</p>
+<p>then navigate to your JavaFX bin folder and select that.</p>
+<p align="center" width="100%">
+    <img width="50%" src="pic6.PNG">
+</p>
+<p>Click <code>Apply</code> then <code>Ok</code>. We are now ready to build our artifact. To do this, on the top menu select <code>Build</code> -&gt; <code>Build Artifacts...</code> which brings up the following menu:</p>
+<p align="center" width="100%">
+    <img width="50%" src="pic7.png">
+</p>
+<p>Select <code>Build</code>, wait a bit, and then you will have a ready-to-go jar file saved in your <code>out</code> directory inside the root directory:</p>
+<p align="center" width="100%">
+    <img width="50%" src="pic8.PNG">
+</p>
+<p>If you have done everything right so far, you should be able to right click on this jar file and run it. </p>
+<h1 id="from-jar-to-exe">From Jar to Exe</h1>
+<p>Now that we have a working Jar file, we are very close the our desired executable. Of course, now that you are at this stage, you can take this jar and do many other things with it. For example, if you have a Mac machine, you can convert it to a MacOS application. In our case, we will use the tool <a href="https://launch4j.sourceforge.net/">Launch4J</a> to build our exe. There may be other ways to do this, but I am not aware of them as of the writing of this article. In any case, Launch4J is fairly straightforward.</p>
+<p align="center" width="100%">
+    <img width="70%" src="pic9.PNG">
+</p>
+<p>There are only two fields you have to concern yourself with: &quot;Output file&quot; and &quot;Jar&quot;. For the &quot;Jar&quot;, select the jar file we just built above. For the &quot;Output file&quot; field, select the directory you want to output the executable into, and give a name: &quot;&lt;insert-name&gt;.exe&quot;. Then, click the cog icon on the top menu. This will force to create an XML save file, which you can give &quot;&lt;any-name&gt;.xml&quot; and save anywhere. If all has gone to plan, the log down the bottom should say &quot;Successfully created &lt;location&gt;\game.exe&quot;. To confirm everything is working, click the blue play button on the menu, which will automatically launch the executable.</p>
+<p>Voila! You have just created a JavaFX windows executable.</p>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+        
+            <hr>
+            <center><small>Copyright © 2023 Jack W R Fuller. All rights reserved.</small></center>
+        
+    </div>
+</body>
+
+</html>

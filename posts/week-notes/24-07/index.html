@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+
+    
+    
+    
+    <title>
+         Week Notes - 7th Week of 2024
+        
+    </title>
+
+        
+            <meta property="og:title" content="Week Notes - 7th Week of 2024" />
+        
+     
+
+     
+         
+     
+
+     
+         
+    
+
+    
+    
+        <link rel="icon" type="image/png" href=icon&#x2F;favicon.png />
+    
+
+    
+    
+        <link href=https://jackwrfuller.au/fonts.css rel="stylesheet" />
+    
+
+    
+    
+
+
+    
+        
+            <script>
+            MathJax = {
+              tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+              }
+            };
+            </script>
+        
+        <script type="text/javascript" id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+    
+
+    
+    <link rel="alternate" type="application/atom+xml" title="jackwrfuller" href="https://jackwrfuller.au/atom.xml">
+
+    
+    
+    
+        <link rel="stylesheet" type="text/css" href="https://jackwrfuller.au/theme/dark.css"/>
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://jackwrfuller.au/main.css />
+
+
+    
+        
+            <link rel="stylesheet" href="https://jackwrfuller.au/override.css">
+        
+    
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <style>
+    .avatar {
+      vertical-align: middle;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+    }
+    #wrapper {
+        width: 100%;
+        clear: both;
+        text-align: center;
+    }
+    </style>
+    <div class="main">
+        <a href=https:&#x2F;&#x2F;jackwrfuller.au&#x2F;>jackwrfuller</a>
+        <div class="socials">
+            
+            <a rel="me" href="https:&#x2F;&#x2F;github.com&#x2F;jackwrfuller&#x2F;" class="social">
+                <img alt=github src="/social_icons/github.svg">
+            </a>
+            
+            <a rel="me" href="https:&#x2F;&#x2F;gitlab.com&#x2F;jackwrfuller" class="social">
+                <img alt=gitlab src="/social_icons/gitlab.svg">
+            </a>
+            
+            <a rel="me" href="https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;jackwrfuller&#x2F;" class="social">
+                <img alt=linkedin src="/social_icons/linkedin.svg">
+            </a>
+            
+        </div>
+    </div>
+    <nav style="margin-bottom: 3rem">
+        
+            <a href=&#x2F;about style="margin-left: 0.7em; margin-bottom: 0.5em">&#x2F;about</a>
+        
+            <a href=&#x2F;now style="margin-left: 0.7em; margin-bottom: 0.5em">&#x2F;now</a>
+        
+            <a href=&#x2F;projects style="margin-left: 0.7em; margin-bottom: 0.5em">&#x2F;projects</a>
+        
+    </nav>
+    <div id="wrapper">
+        <a href=https:&#x2F;&#x2F;jackwrfuller.au&#x2F;>
+            <img src="https://github.com/jackwrfuller.png" class="avatar" />
+        </a>
+    </div>
+</header>
+
+        
+        
+    
+<main>
+    <article>
+        <div class="title">
+            
+            
+    <div class="page-header">
+        Week Notes - 7th Week of 2024<span class="primary-color" style="font-size: 1.6em">.</span>
+    </div>
+
+
+                <div class="meta">
+                    
+                        Posted on <time>2024-02-16</time>
+                    
+
+                    
+                </div>
+        </div>
+
+        
+
+        
+        
+
+        <section class="body">
+            <h1 id="notes-week-7-2024">Notes - Week 7, 2024</h1>
+<ul>
+<li>This week was the first full week I spent developing our GovCMS command line application which we so far call (perhaps uninspiringly) <a href="https://github.com/govcms-tests/govcms-cli">govcms-cli</a>. Like pretty much all our projects, they are funded for the benefit of the Australian public and therefore open-source. Feel free to check it out and follow along!
+<ul>
+<li>This project is the first time I have worked with Go, and I have to admit, the language is growing on me. I haven't yet had experience where I can't write something in the way I think it should be written. Other languages I have been practising (looking at you C++) have not been so forgiving.</li>
+<li>We are building the CLI app using the well-known <a href="https://github.com/spf13/cobra">Cobra</a> framework written by the legendary Steve Francia, whom I learned about only recently. I have to admit I am in awe that someone can bounce between so many well-known and important projects as he has, all the while creating many useful tools that I now use.</li>
+</ul>
+</li>
+<li>By thursday, I had completed the main functionality of one the commands. While I am a big proponent of TDD, I regrettably did not practise it while developing this command - I think because I was overwhelmed with learning Go and Cobra at the same time. I then spent thursday and friday writing some tests to get the coverage and confidence up, however that was a challenge unto itself. There are not a huge amount of resources out there about testing Cobra CLI applications, especially with respect to dependency injection. This was challenging becuase I realised I needed to mock both the filesystem and database and needed to figure out how to do so. Given the lack of resources out there on this subject, I think I might release a blog post soon covering this topic.</li>
+<li>Wednesday was Valentine's, and I booked a nice semi-formal italian-fusion restaurant nearby for E. and I to go to. The food was amazing, and actually very reasonably priced. I got lamb shanks with some amazing sides, all for \$33. This was very reasonably priced, when you consider that a very mid-tier chicken schnitzel from a local RSL will easily set you back $30 these days.</li>
+<li>It was confirmed that I will be attending <a href="https://drupalsouth.org/events/drupalsouth-sydney-2024">Drupal South 2024</a> in Sydney this year! As the maintainers of the GovCMS project, it is healthy to connect with the wider Drupal community. This will be my first conference, let alone developer conference, so I am excited and curious to see how things play out. One of our senior engineers, Joseph, will be giving a <a href="https://drupalsouth.org/events/drupalsouth-sydney-2024/schedule/3038">talk</a> there about the work we have been doing to improve testing on GovCMS. </li>
+</ul>
+<p>Reading:</p>
+<ul>
+<li>Normal Women by Phillipa Gregory</li>
+</ul>
+<p>Watching:</p>
+<ul>
+<li>Welcome to Wrexham (season 2, Disney+)</li>
+</ul>
+<p>Listening to:</p>
+<ul>
+<li>A Little Hatred by Joe Abercrombie, read by Steven Pacey</li>
+</ul>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+        
+            <hr>
+            <center><small>Copyright © 2023 Jack W R Fuller. All rights reserved.</small></center>
+        
+    </div>
+</body>
+
+</html>
