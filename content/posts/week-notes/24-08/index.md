@@ -1,7 +1,7 @@
 +++
 title = "Week Notes - 8th Week of 2024"
 weight = 1
-date = 2024-02-16
+date = 2024-02-25
 +++
 
 # Notes - Week 8, 2024
