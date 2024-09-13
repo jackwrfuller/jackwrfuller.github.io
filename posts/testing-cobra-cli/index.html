@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+
+    
+    
+    
+    <title>
+         Golang: Testing Cobra CLI applications with dependency injection
+        
+    </title>
+
+        
+            <meta property="og:title" content="Golang: Testing Cobra CLI applications with dependency injection" />
+        
+     
+
+     
+         
+     
+
+     
+         
+    
+
+    
+    
+        <link rel="icon" type="image/png" href=icon&#x2F;favicon.png />
+    
+
+    
+    
+        <link href=https://jackwrfuller.au/fonts.css rel="stylesheet" />
+    
+
+    
+    
+
+
+    
+        
+            <script>
+            MathJax = {
+              tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+              }
+            };
+            </script>
+        
+        <script type="text/javascript" id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+    
+
+    
+    <link rel="alternate" type="application/atom+xml" title="jackwrfuller" href="https://jackwrfuller.au/atom.xml">
+
+    
+    
+    
+        <link rel="stylesheet" type="text/css" href="https://jackwrfuller.au/theme/dark.css"/>
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://jackwrfuller.au/main.css />
+
+
+    
+        
+            <link rel="stylesheet" href="https://jackwrfuller.au/override.css">
+        
+    
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <style>
+    .avatar {
+      vertical-align: middle;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+    }
+    #wrapper {
+        width: 100%;
+        clear: both;
+        text-align: center;
+    }
+    </style>
+    <div class="main">
+        <a href=https:&#x2F;&#x2F;jackwrfuller.au&#x2F;>jackwrfuller</a>
+        <div class="socials">
+            
+            <a rel="me" href="https:&#x2F;&#x2F;github.com&#x2F;jackwrfuller&#x2F;" class="social">
+                <img alt=github src="/social_icons/github.svg">
+            </a>
+            
+            <a rel="me" href="https:&#x2F;&#x2F;gitlab.com&#x2F;jackwrfuller" class="social">
+                <img alt=gitlab src="/social_icons/gitlab.svg">
+            </a>
+            
+            <a rel="me" href="https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;jackwrfuller&#x2F;" class="social">
+                <img alt=linkedin src="/social_icons/linkedin.svg">
+            </a>
+            
+        </div>
+    </div>
+    <nav style="margin-bottom: 3rem">
+        
+            <a href=&#x2F;about style="margin-left: 0.7em; margin-bottom: 0.5em">&#x2F;about</a>
+        
+            <a href=&#x2F;now style="margin-left: 0.7em; margin-bottom: 0.5em">&#x2F;now</a>
+        
+            <a href=&#x2F;projects style="margin-left: 0.7em; margin-bottom: 0.5em">&#x2F;projects</a>
+        
+    </nav>
+    <div id="wrapper">
+        <a href=https:&#x2F;&#x2F;jackwrfuller.au&#x2F;>
+            <img src="https://github.com/jackwrfuller.png" class="avatar" />
+        </a>
+    </div>
+</header>
+
+        
+        
+    
+<main>
+    <article>
+        <div class="title">
+            
+            
+    <div class="page-header">
+        Golang: Testing Cobra CLI applications with dependency injection<span class="primary-color" style="font-size: 1.6em">.</span>
+    </div>
+
+
+                <div class="meta">
+                    
+                        Posted on <time>2024-02-21</time>
+                    
+
+                    
+                </div>
+        </div>
+
+        
+
+        
+        
+
+        <section class="body">
+            <h1 id="golang-testing-cobra-cli-applications-with-dependency-injection">Golang: Testing Cobra CLI applications with dependency injection</h1>
+<p>When creating a command line interface (CLI) application, the Go programming language and the <a href="https://github.com/spf13/cobra">Cobra CLI framework</a> are popular choices.
+I was recently introduced to this stack while helping develop the <a href="https://github.com/govcms-tests/govcms-cli">GovCMS CLI application</a>. 
+Like the good little engineer I am, I eventually investigated how I could go about actually testing what I had written.</p>
+<p>Suppose we want a base command 'boom' which has two subcommands 'small' and 'big', i.e a user using our app has access to commands,</p>
+<pre data-lang="shell" style="background-color:#282c34;color:#abb2bf;" class="language-shell "><code class="language-shell" data-lang="shell"><span>boom small
+</span></code></pre>
+<p>and</p>
+<pre data-lang="shell" style="background-color:#282c34;color:#abb2bf;" class="language-shell "><code class="language-shell" data-lang="shell"><span>boom big
+</span></code></pre>
+<p>Our first iteration of this project might look something like this:</p>
+<pre data-lang="go" style="background-color:#282c34;color:#abb2bf;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#c678dd;">package </span><span style="color:#e06c75;">main
+</span><span>
+</span><span style="color:#c678dd;">import </span><span style="color:#98c379;">&quot;github.com/spf13/cobra&quot;
+</span><span>
+</span><span style="color:#c678dd;">var </span><span style="color:#e06c75;">rootCmd </span><span>= &amp;</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#e06c75;">Command</span><span>{
+</span><span>	</span><span style="color:#e06c75;">Use</span><span>:   </span><span style="color:#98c379;">&quot;boom&quot;</span><span>,
+</span><span>	</span><span style="color:#e06c75;">Short</span><span>: </span><span style="color:#98c379;">&quot;Explode things!&quot;</span><span>,
+</span><span>}
+</span><span>
+</span><span style="color:#c678dd;">var </span><span style="color:#e06c75;">smallBoomCmd </span><span>= &amp;</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#e06c75;">Command</span><span>{
+</span><span>	</span><span style="color:#e06c75;">Use</span><span>:   </span><span style="color:#98c379;">&quot;small&quot;</span><span>,
+</span><span>	</span><span style="color:#e06c75;">Short</span><span>: </span><span style="color:#98c379;">&quot;Small explosion&quot;</span><span>,
+</span><span>	</span><span style="color:#e06c75;">Run</span><span>: </span><span style="color:#c678dd;">func</span><span>(</span><span style="color:#e06c75;">cmd </span><span>*</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#c678dd;">Command</span><span>, </span><span style="color:#e06c75;">args </span><span>[]</span><span style="color:#c678dd;">string</span><span>) {
+</span><span>		</span><span style="font-style:italic;color:#5c6370;">// Do something
+</span><span>	},
+</span><span>}
+</span><span>
+</span><span style="color:#c678dd;">var </span><span style="color:#e06c75;">bigBoomCmd </span><span>= &amp;</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#e06c75;">Command</span><span>{
+</span><span>	</span><span style="color:#e06c75;">Use</span><span>:   </span><span style="color:#98c379;">&quot;big&quot;</span><span>,
+</span><span>	</span><span style="color:#e06c75;">Short</span><span>: </span><span style="color:#98c379;">&quot;big explosion&quot;</span><span>,
+</span><span>	</span><span style="color:#e06c75;">Run</span><span>: </span><span style="color:#c678dd;">func</span><span>(</span><span style="color:#e06c75;">cmd </span><span>*</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#c678dd;">Command</span><span>, </span><span style="color:#e06c75;">args </span><span>[]</span><span style="color:#c678dd;">string</span><span>) {
+</span><span>		</span><span style="font-style:italic;color:#5c6370;">// Do something else
+</span><span>	},
+</span><span>}
+</span><span>
+</span><span style="color:#c678dd;">func </span><span style="color:#61afef;">main</span><span>() {
+</span><span>	</span><span style="color:#e06c75;">rootCmd</span><span>.</span><span style="color:#e06c75;">AddCommand</span><span>(</span><span style="color:#e06c75;">smallBoomCmd</span><span>)
+</span><span>	</span><span style="color:#e06c75;">rootCmd</span><span>.</span><span style="color:#e06c75;">AddCommand</span><span>(</span><span style="color:#e06c75;">bigBoomCmd</span><span>)
+</span><span>
+</span><span>	</span><span style="color:#e06c75;">rootCmd</span><span>.</span><span style="color:#e06c75;">Execute</span><span>()
+</span><span>}
+</span></code></pre>
+<p>How do we go about testing this?</p>
+<h2 id="method-1-don-t">Method 1: Don't</h2>
+<p>The simplest and probably most robust approach is to have the Cobra framework pass all the necessary to a helper function - one completely independent of Cobra - and test that instead.
+This idea was introduced to me by @Elwinar on <a href="https://stackoverflow.com/a/35827855">this</a> stackoverflow post. It looks like this:</p>
+<pre data-lang="go" style="background-color:#282c34;color:#abb2bf;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#c678dd;">func </span><span style="color:#61afef;">main</span><span>() {
+</span><span>
+</span><span>	</span><span style="color:#c678dd;">var </span><span style="color:#e06c75;">rootCmd </span><span>= &amp;</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#e06c75;">Command</span><span>{
+</span><span>		</span><span style="color:#e06c75;">Use</span><span>:   </span><span style="color:#98c379;">&quot;boom&quot;</span><span>,
+</span><span>		</span><span style="color:#e06c75;">Short</span><span>: </span><span style="color:#98c379;">&quot;Explode things!&quot;</span><span>,
+</span><span>	}
+</span><span>
+</span><span>	</span><span style="color:#c678dd;">var </span><span style="color:#e06c75;">smallBoomCmd </span><span>= &amp;</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#e06c75;">Command</span><span>{
+</span><span>		</span><span style="color:#e06c75;">Use</span><span>:   </span><span style="color:#98c379;">&quot;small&quot;</span><span>,
+</span><span>		</span><span style="color:#e06c75;">Short</span><span>: </span><span style="color:#98c379;">&quot;Small explosion&quot;</span><span>,
+</span><span>		</span><span style="color:#e06c75;">Run</span><span>: </span><span style="color:#c678dd;">func</span><span>(</span><span style="color:#e06c75;">cmd </span><span>*</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#c678dd;">Command</span><span>, </span><span style="color:#e06c75;">args </span><span>[]</span><span style="color:#c678dd;">string</span><span>) {
+</span><span>			</span><span style="color:#e06c75;">small</span><span>(</span><span style="color:#e06c75;">args</span><span>...)
+</span><span>		},
+</span><span>	}
+</span><span>
+</span><span>	</span><span style="color:#c678dd;">var </span><span style="color:#e06c75;">bigBoomCmd </span><span>= &amp;</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#e06c75;">Command</span><span>{
+</span><span>		</span><span style="color:#e06c75;">Use</span><span>:   </span><span style="color:#98c379;">&quot;big&quot;</span><span>,
+</span><span>		</span><span style="color:#e06c75;">Short</span><span>: </span><span style="color:#98c379;">&quot;big explosion&quot;</span><span>,
+</span><span>		</span><span style="color:#e06c75;">Run</span><span>: </span><span style="color:#c678dd;">func</span><span>(</span><span style="color:#e06c75;">cmd </span><span>*</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#c678dd;">Command</span><span>, </span><span style="color:#e06c75;">args </span><span>[]</span><span style="color:#c678dd;">string</span><span>) {
+</span><span>			</span><span style="color:#e06c75;">big</span><span>(</span><span style="color:#e06c75;">args</span><span>...)
+</span><span>		},
+</span><span>	}
+</span><span>
+</span><span>	</span><span style="color:#e06c75;">rootCmd</span><span>.</span><span style="color:#e06c75;">AddCommand</span><span>(</span><span style="color:#e06c75;">smallBoomCmd</span><span>)
+</span><span>	</span><span style="color:#e06c75;">rootCmd</span><span>.</span><span style="color:#e06c75;">AddCommand</span><span>(</span><span style="color:#e06c75;">bigBoomCmd</span><span>)
+</span><span>
+</span><span>	</span><span style="color:#e06c75;">rootCmd</span><span>.</span><span style="color:#e06c75;">Execute</span><span>()
+</span><span>}
+</span><span>
+</span><span style="color:#c678dd;">func </span><span style="color:#61afef;">small</span><span>(</span><span style="color:#e06c75;">args </span><span>...</span><span style="color:#c678dd;">string</span><span>) {
+</span><span>	</span><span style="font-style:italic;color:#5c6370;">// Do something
+</span><span>}
+</span><span>
+</span><span style="color:#c678dd;">func </span><span style="color:#61afef;">big</span><span>(</span><span style="color:#e06c75;">args </span><span>...</span><span style="color:#c678dd;">string</span><span>) {
+</span><span>	</span><span style="font-style:italic;color:#5c6370;">// Do something else
+</span><span>}
+</span></code></pre>
+<p>You would then create tests for <code>small()</code> and <code>big()</code> in the standard Go fashion (If you need a refresher on this, <a href="https://blog.jetbrains.com/go/2022/11/22/comprehensive-guide-to-testing-in-go/">this</a> might be helpful).
+This method works and introduces a separation of concerns, usually considered an improving change to any code. I would imagine that if this is possible in your case, most would recommend this approach.</p>
+<p>However, it might be the case you wish to test <em>Cobra itself</em>. Why? Perhaps the <code>Run</code> field function command be abstracted nicely into a single function, or maybe you wish to create integration tests of Cobra, rather than unit tests.
+In any case, there is another approach.</p>
+<h2 id="method-2-command-factories-with-dependency-injection">Method 2: Command factories with dependency injection</h2>
+<p>This method was born out of <a href="https://gianarb.it/blog/golang-mockmania-cli-command-with-cobra">this</a> blog post by <a href="https://github.com/gianarb">Gianluca Arbezzano</a>.
+When testing, we usually like to mock our dependencies in tests to ensure they run as fast as possible while testing exactly the code we wish to test.
+Mocking requires being able to inject our dependencies, so we can use both the real and mocked versions at different times. Gianluca proposed a command factory that takes in dependencies like a constructor.</p>
+<pre data-lang="go" style="background-color:#282c34;color:#abb2bf;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#c678dd;">package </span><span style="color:#e06c75;">main
+</span><span>
+</span><span style="color:#c678dd;">import </span><span style="color:#98c379;">&quot;github.com/spf13/cobra&quot;
+</span><span>
+</span><span style="color:#c678dd;">func </span><span style="color:#61afef;">NewRootCmd</span><span>( </span><span style="font-style:italic;color:#5c6370;">/*Dependencies inserted here */ </span><span>) *</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#c678dd;">Command </span><span>{
+</span><span>	</span><span style="color:#e06c75;">rootCmd </span><span>:= &amp;</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#e06c75;">Command</span><span>{
+</span><span>		</span><span style="color:#e06c75;">Use</span><span>:   </span><span style="color:#98c379;">&quot;boom&quot;</span><span>,
+</span><span>		</span><span style="color:#e06c75;">Short</span><span>: </span><span style="color:#98c379;">&quot;Explode things!&quot;</span><span>,
+</span><span>	}
+</span><span>	</span><span style="color:#e06c75;">rootCmd</span><span>.</span><span style="color:#e06c75;">AddCommand</span><span>(</span><span style="color:#e06c75;">smallBoomCmd</span><span>)
+</span><span>	</span><span style="color:#e06c75;">rootCmd</span><span>.</span><span style="color:#e06c75;">AddCommand</span><span>(</span><span style="color:#e06c75;">bigBoomCmd</span><span>)
+</span><span>
+</span><span>	</span><span style="color:#c678dd;">return </span><span style="color:#e06c75;">rootCmd
+</span><span>}
+</span><span>
+</span><span style="color:#c678dd;">var </span><span style="color:#e06c75;">smallBoomCmd </span><span>= &amp;</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#e06c75;">Command</span><span>{
+</span><span>	</span><span style="color:#e06c75;">Use</span><span>:   </span><span style="color:#98c379;">&quot;small&quot;</span><span>,
+</span><span>	</span><span style="color:#e06c75;">Short</span><span>: </span><span style="color:#98c379;">&quot;Small explosion&quot;</span><span>,
+</span><span>	</span><span style="color:#e06c75;">Run</span><span>: </span><span style="color:#c678dd;">func</span><span>(</span><span style="color:#e06c75;">cmd </span><span>*</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#c678dd;">Command</span><span>, </span><span style="color:#e06c75;">args </span><span>[]</span><span style="color:#c678dd;">string</span><span>) {
+</span><span>		</span><span style="font-style:italic;color:#5c6370;">// Do something
+</span><span>	},
+</span><span>}
+</span><span>
+</span><span style="color:#c678dd;">var </span><span style="color:#e06c75;">bigBoomCmd </span><span>= &amp;</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#e06c75;">Command</span><span>{
+</span><span>	</span><span style="color:#e06c75;">Use</span><span>:   </span><span style="color:#98c379;">&quot;big&quot;</span><span>,
+</span><span>	</span><span style="color:#e06c75;">Short</span><span>: </span><span style="color:#98c379;">&quot;big explosion&quot;</span><span>,
+</span><span>	</span><span style="color:#e06c75;">Run</span><span>: </span><span style="color:#c678dd;">func</span><span>(</span><span style="color:#e06c75;">cmd </span><span>*</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#c678dd;">Command</span><span>, </span><span style="color:#e06c75;">args </span><span>[]</span><span style="color:#c678dd;">string</span><span>) {
+</span><span>		</span><span style="font-style:italic;color:#5c6370;">// Do something else
+</span><span>	},
+</span><span>}
+</span><span>
+</span><span style="color:#c678dd;">func </span><span style="color:#61afef;">main</span><span>() {
+</span><span>	</span><span style="color:#e06c75;">rootCmd </span><span>:= </span><span style="color:#e06c75;">NewRootCmd</span><span>()
+</span><span>	</span><span style="color:#e06c75;">rootCmd</span><span>.</span><span style="color:#e06c75;">Execute</span><span>()
+</span><span>}
+</span></code></pre>
+<p>Note that the subcommands are added <em>inside</em> the command factory <code>NewRootCmd()</code>. This was not something discussed in Gianluca's post.
+We can then run a test using something like this:</p>
+<pre data-lang="go" style="background-color:#282c34;color:#abb2bf;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#c678dd;">func </span><span style="color:#61afef;">Test_SmallCmd</span><span>(</span><span style="color:#e06c75;">t </span><span>*</span><span style="color:#e06c75;">testing</span><span>.</span><span style="color:#c678dd;">T</span><span>) {
+</span><span>	</span><span style="color:#e06c75;">cmd </span><span>:= </span><span style="color:#e06c75;">NewRootCmd</span><span>()
+</span><span>	</span><span style="color:#e06c75;">cmd</span><span>.</span><span style="color:#e06c75;">SetArgs</span><span>([]</span><span style="color:#c678dd;">string</span><span>{</span><span style="color:#98c379;">&quot;small&quot;</span><span>})
+</span><span>	</span><span style="color:#e06c75;">cmd</span><span>.</span><span style="color:#e06c75;">Execute</span><span>()
+</span><span>	
+</span><span>	</span><span style="font-style:italic;color:#5c6370;">// assert something here
+</span><span>}
+</span></code></pre>
+<p>This method as written currently has two major drawbacks however: </p>
+<ul>
+<li>execution of commands has to be done explicitly which can make capturing of results tricky</li>
+<li>all subcommands are defined globally which means different root commands created using the factory all use the same subcommand instances</li>
+</ul>
+<p>The first issue is relatively minor and can improved by using some test execution fixture. The second issue was more subtle, and was causing some annoying bugs for me that took an extended debugging session to realise. 
+Fortunately, we can work around these two issues quite simply.</p>
+<h3 id="improving-command-execution">Improving command execution</h3>
+<p>Ideally, we want some function that encapsulates command execution and provides us with the string output of running this command (string because, well, its a CLI app).
+I can't remember where I was pointed to a solution for this, but someone suggested looking at the tests for Cobra itself. Sure enough, Steve Francia being the legend he is, provided the goods with <code>executeCommand(root *Command, args ...string )(string, error)</code> in <a href="https://github.com/spf13/cobra/blob/bcfcff729ecdeb4072ef6f2a9c0b5e4ca1853206/command_test.go#L32">command_test.go</a>.
+Since this function is unexported, I had to bring it in-house by copying the following two functions into the project:</p>
+<pre data-lang="go" style="background-color:#282c34;color:#abb2bf;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#c678dd;">func </span><span style="color:#61afef;">ExecuteCommand</span><span>(</span><span style="color:#e06c75;">root </span><span>*</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#c678dd;">Command</span><span>, </span><span style="color:#e06c75;">args </span><span>...</span><span style="color:#c678dd;">string</span><span>) (</span><span style="color:#e06c75;">output </span><span style="color:#c678dd;">string</span><span>, </span><span style="color:#e06c75;">err </span><span style="color:#c678dd;">error</span><span>) {
+</span><span>	</span><span style="color:#e06c75;">_</span><span>, </span><span style="color:#e06c75;">output</span><span>, </span><span style="color:#e06c75;">err </span><span>= </span><span style="color:#e06c75;">ExecuteCommandC</span><span>(</span><span style="color:#e06c75;">root</span><span>, </span><span style="color:#e06c75;">args</span><span>...)
+</span><span>	</span><span style="color:#c678dd;">return </span><span style="color:#e06c75;">output</span><span>, </span><span style="color:#e06c75;">err
+</span><span>}
+</span><span>
+</span><span style="color:#c678dd;">func </span><span style="color:#61afef;">ExecuteCommandC</span><span>(</span><span style="color:#e06c75;">root </span><span>*</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#c678dd;">Command</span><span>, </span><span style="color:#e06c75;">args </span><span>...</span><span style="color:#c678dd;">string</span><span>) (</span><span style="color:#e06c75;">c </span><span>*</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#c678dd;">Command</span><span>, </span><span style="color:#e06c75;">output </span><span style="color:#c678dd;">string</span><span>, </span><span style="color:#e06c75;">err </span><span style="color:#c678dd;">error</span><span>) {
+</span><span>	</span><span style="color:#e06c75;">buf </span><span>:= </span><span style="color:#56b6c2;">new</span><span>(</span><span style="color:#e06c75;">bytes</span><span>.</span><span style="color:#c678dd;">Buffer</span><span>)
+</span><span>	</span><span style="color:#e06c75;">root</span><span>.</span><span style="color:#e06c75;">SetOut</span><span>(</span><span style="color:#e06c75;">buf</span><span>)
+</span><span>	</span><span style="color:#e06c75;">root</span><span>.</span><span style="color:#e06c75;">SetErr</span><span>(</span><span style="color:#e06c75;">buf</span><span>)
+</span><span>	</span><span style="color:#e06c75;">root</span><span>.</span><span style="color:#e06c75;">SetArgs</span><span>(</span><span style="color:#e06c75;">args</span><span>)
+</span><span>
+</span><span>	</span><span style="color:#e06c75;">c</span><span>, </span><span style="color:#e06c75;">err </span><span>= </span><span style="color:#e06c75;">root</span><span>.</span><span style="color:#e06c75;">ExecuteC</span><span>()
+</span><span>
+</span><span>	</span><span style="color:#c678dd;">return </span><span style="color:#e06c75;">c</span><span>, </span><span style="color:#e06c75;">buf</span><span>.</span><span style="color:#e06c75;">String</span><span>(), </span><span style="color:#e06c75;">err
+</span><span>}
+</span><span>
+</span></code></pre>
+<p>These two functions can be modified and extended if needed, but for my purposes they were sufficient. With them, our tests now look something like this:</p>
+<pre data-lang="go" style="background-color:#282c34;color:#abb2bf;" class="language-go "><code class="language-go" data-lang="go"><span style="color:#c678dd;">func </span><span style="color:#61afef;">Test_SmallCmd</span><span>(</span><span style="color:#e06c75;">t </span><span>*</span><span style="color:#e06c75;">testing</span><span>.</span><span style="color:#c678dd;">T</span><span>) {
+</span><span>	</span><span style="color:#e06c75;">cmd </span><span>:= </span><span style="color:#e06c75;">NewRootCmd</span><span>()
+</span><span>	</span><span style="color:#e06c75;">consoleOutput</span><span>, </span><span style="color:#e06c75;">err </span><span>:= </span><span style="color:#e06c75;">ExecuteCommand</span><span>(</span><span style="color:#e06c75;">cmd</span><span>, </span><span style="color:#98c379;">&quot;small&quot;</span><span>)
+</span><span>
+</span><span>	</span><span style="font-style:italic;color:#5c6370;">// assert something about output/errors here
+</span><span>}
+</span></code></pre>
+<h3 id="preventing-singleton-subcommands">Preventing singleton subcommands</h3>
+<p>As it stands, our <code>smallCmd</code> and <code>bigCmd</code> are singletons. This might not seem like a big deal, but it can lead to some unexpected and certainly undesirable results.
+In my case, I was creating a subcommand that could take two flags, lets call them <code>radius</code> and <code>diameter</code>. I wanted users to be able to specify one, but not both. I.e</p>
+<pre data-lang="shell" style="background-color:#282c34;color:#abb2bf;" class="language-shell "><code class="language-shell" data-lang="shell"><span>boom small --radius=100 // Allowed
+</span></code></pre>
+<pre data-lang="shell" style="background-color:#282c34;color:#abb2bf;" class="language-shell "><code class="language-shell" data-lang="shell"><span>boom small --diameter=200 // Allowed
+</span></code></pre>
+<pre data-lang="shell" style="background-color:#282c34;color:#abb2bf;" class="language-shell "><code class="language-shell" data-lang="shell"><span>boom small --radius=10 --diameter=50 // Not allowed
+</span></code></pre>
+<p>I created tests for each case, and each test passed. However an odd thing happened: when I ran all the test sequentially in a test suite, most of them failed! 
+As it turned out, flags are attached to the subcommands, and by calling the subcommand with that flag, I was forever retaining the fact I had <em>changed</em> that flag. After running the first two tests,
+all commands would then fail, as it still thought both flags had been called.</p>
+<p>The solution?</p>
+<p>The subcommands need to be created with factories  as well so that there lifetime is synchronised with the root command. Given we already achieved this with the root command, it is not that difficult:</p>
+<pre data-lang="go" style="background-color:#282c34;color:#abb2bf;" class="language-go "><code class="language-go" data-lang="go"><span>
+</span><span style="color:#c678dd;">func </span><span style="color:#61afef;">NewRootCmd</span><span>( </span><span style="font-style:italic;color:#5c6370;">/*Dependencies inserted here */ </span><span>) *</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#c678dd;">Command </span><span>{
+</span><span>	</span><span style="color:#e06c75;">rootCmd </span><span>:= &amp;</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#e06c75;">Command</span><span>{
+</span><span>		</span><span style="color:#e06c75;">Use</span><span>:   </span><span style="color:#98c379;">&quot;boom&quot;</span><span>,
+</span><span>		</span><span style="color:#e06c75;">Short</span><span>: </span><span style="color:#98c379;">&quot;Explode things!&quot;</span><span>,
+</span><span>	}
+</span><span>	</span><span style="color:#e06c75;">rootCmd</span><span>.</span><span style="color:#e06c75;">AddCommand</span><span>(</span><span style="color:#e06c75;">newSmallCmd</span><span>())
+</span><span>	</span><span style="color:#e06c75;">rootCmd</span><span>.</span><span style="color:#e06c75;">AddCommand</span><span>(</span><span style="color:#e06c75;">newBigCmd</span><span>())
+</span><span>
+</span><span>	</span><span style="color:#c678dd;">return </span><span style="color:#e06c75;">rootCmd
+</span><span>}
+</span><span>
+</span><span style="color:#c678dd;">func </span><span style="color:#61afef;">newSmallCmd</span><span>() *</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#c678dd;">Command </span><span>{
+</span><span>	</span><span style="color:#e06c75;">smallCmd </span><span>:= &amp;</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#e06c75;">Command</span><span>{
+</span><span>		</span><span style="color:#e06c75;">Use</span><span>:   </span><span style="color:#98c379;">&quot;small&quot;</span><span>,
+</span><span>		</span><span style="color:#e06c75;">Short</span><span>: </span><span style="color:#98c379;">&quot;Small explosion&quot;</span><span>,
+</span><span>		</span><span style="color:#e06c75;">Run</span><span>: </span><span style="color:#c678dd;">func</span><span>(</span><span style="color:#e06c75;">cmd </span><span>*</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#c678dd;">Command</span><span>, </span><span style="color:#e06c75;">args </span><span>[]</span><span style="color:#c678dd;">string</span><span>) {
+</span><span>			</span><span style="font-style:italic;color:#5c6370;">// Do something
+</span><span>		},
+</span><span>	}
+</span><span>	</span><span style="font-style:italic;color:#5c6370;">// You can register flags, grandchild commands, etc here
+</span><span>
+</span><span>	</span><span style="color:#c678dd;">return </span><span style="color:#e06c75;">smallCmd
+</span><span>}
+</span><span>
+</span><span style="color:#c678dd;">func </span><span style="color:#61afef;">newBigCmd</span><span>() *</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#c678dd;">Command </span><span>{
+</span><span>	</span><span style="color:#e06c75;">bigCmd </span><span>:= &amp;</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#e06c75;">Command</span><span>{
+</span><span>		</span><span style="color:#e06c75;">Use</span><span>:   </span><span style="color:#98c379;">&quot;big&quot;</span><span>,
+</span><span>		</span><span style="color:#e06c75;">Short</span><span>: </span><span style="color:#98c379;">&quot;Big explosion&quot;</span><span>,
+</span><span>		</span><span style="color:#e06c75;">Run</span><span>: </span><span style="color:#c678dd;">func</span><span>(</span><span style="color:#e06c75;">cmd </span><span>*</span><span style="color:#e06c75;">cobra</span><span>.</span><span style="color:#c678dd;">Command</span><span>, </span><span style="color:#e06c75;">args </span><span>[]</span><span style="color:#c678dd;">string</span><span>) {
+</span><span>			</span><span style="font-style:italic;color:#5c6370;">// Do something
+</span><span>		},
+</span><span>	}
+</span><span>	</span><span style="font-style:italic;color:#5c6370;">// You can register flags, grandchild commands, etc here
+</span><span>
+</span><span>	</span><span style="color:#c678dd;">return </span><span style="color:#e06c75;">bigCmd
+</span><span>}
+</span><span>
+</span><span style="color:#c678dd;">func </span><span style="color:#61afef;">main</span><span>() {
+</span><span>	</span><span style="color:#e06c75;">rootCmd </span><span>:= </span><span style="color:#e06c75;">NewRootCmd</span><span>()
+</span><span>	</span><span style="color:#e06c75;">rootCmd</span><span>.</span><span style="color:#e06c75;">Execute</span><span>()
+</span><span>}
+</span></code></pre>
+<p>And that's it! I'm sure that there are  ways to even further improve this solution, so if you have any feel free to reach out.</p>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+        
+            <hr>
+            <center><small>Copyright © 2023 Jack W R Fuller. All rights reserved.</small></center>
+        
+    </div>
+</body>
+
+</html>

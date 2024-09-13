@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+
+    
+    
+    
+    <title>
+         An Improved Memory Fragmentation Metric
+        
+    </title>
+
+        
+            <meta property="og:title" content="An Improved Memory Fragmentation Metric" />
+        
+     
+
+     
+         
+     
+
+     
+         
+    
+
+    
+    
+        <link rel="icon" type="image/png" href=icon&#x2F;favicon.png />
+    
+
+    
+    
+        <link href=https://jackwrfuller.au/fonts.css rel="stylesheet" />
+    
+
+    
+    
+
+
+    
+        
+            <script>
+            MathJax = {
+              tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+              }
+            };
+            </script>
+        
+        <script type="text/javascript" id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+    
+
+    
+    <link rel="alternate" type="application/atom+xml" title="jackwrfuller" href="https://jackwrfuller.au/atom.xml">
+
+    
+    
+    
+        <link rel="stylesheet" type="text/css" href="https://jackwrfuller.au/theme/dark.css"/>
+    
+
+    <link rel="stylesheet" type="text/css" media="screen" href=https://jackwrfuller.au/main.css />
+
+
+    
+        
+            <link rel="stylesheet" href="https://jackwrfuller.au/override.css">
+        
+    
+</head>
+
+
+<body>
+    <div class="content">
+        <header>
+    <style>
+    .avatar {
+      vertical-align: middle;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+    }
+    #wrapper {
+        width: 100%;
+        clear: both;
+        text-align: center;
+    }
+    </style>
+    <div class="main">
+        <a href=https:&#x2F;&#x2F;jackwrfuller.au&#x2F;>jackwrfuller</a>
+        <div class="socials">
+            
+            <a rel="me" href="https:&#x2F;&#x2F;github.com&#x2F;jackwrfuller&#x2F;" class="social">
+                <img alt=github src="/social_icons/github.svg">
+            </a>
+            
+            <a rel="me" href="https:&#x2F;&#x2F;gitlab.com&#x2F;jackwrfuller" class="social">
+                <img alt=gitlab src="/social_icons/gitlab.svg">
+            </a>
+            
+            <a rel="me" href="https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;jackwrfuller&#x2F;" class="social">
+                <img alt=linkedin src="/social_icons/linkedin.svg">
+            </a>
+            
+        </div>
+    </div>
+    <nav style="margin-bottom: 3rem">
+        
+            <a href=&#x2F;about style="margin-left: 0.7em; margin-bottom: 0.5em">&#x2F;about</a>
+        
+            <a href=&#x2F;now style="margin-left: 0.7em; margin-bottom: 0.5em">&#x2F;now</a>
+        
+            <a href=&#x2F;projects style="margin-left: 0.7em; margin-bottom: 0.5em">&#x2F;projects</a>
+        
+    </nav>
+    <div id="wrapper">
+        <a href=https:&#x2F;&#x2F;jackwrfuller.au&#x2F;>
+            <img src="https://github.com/jackwrfuller.png" class="avatar" />
+        </a>
+    </div>
+</header>
+
+        
+        
+    
+<main>
+    <article>
+        <div class="title">
+            
+            
+    <div class="page-header">
+        An Improved Memory Fragmentation Metric<span class="primary-color" style="font-size: 1.6em">.</span>
+    </div>
+
+
+                <div class="meta">
+                    
+                        Posted on <time>2024-09-13</time>
+                    
+
+                    
+                </div>
+        </div>
+
+        
+
+        
+        
+
+        <section class="body">
+            <h1 id="an-improved-memory-fragmentation-metric">An Improved Memory Fragmentation Metric?</h1>
+<p>As it turns out, there are not many resources online (nor articles discoverable on google scholar)
+that discuss memory fragmentation metrics. The couple that I could find, namely Adam Sawicki's <a href="https://asawicki.info/news_1757_a_metric_for_memory_fragmentation">blog
+post</a> and <a href="https://stackoverflow.com/q/4586972">this Stackoverflow
+article</a>, are about it.</p>
+<p>So I decided to see if I could create my own.</p>
+<h1 id="some-maths">Some maths</h1>
+<p>Suppose we have some memory of size $M$. Then we can consider a <em>memory address</em> to be any
+non-negative integer $x$ such that $x \in [0,M)$. We can also consider an <em>allocation</em> to be a tuple
+$A_i = (x_i, l_i)$, where $l_i \in \mathbb{Z}_+$ is the <em>size</em> of the allocation.</p>
+<p>A <em>placement</em> $P$  is then a set of $n$ non-overlapping allocations ${A_i}_{i=1}^{n}$ such that:</p>
+<ol>
+<li>$0 \le x_1 &lt; x_2 &lt; ... &lt; x_n &lt; M$</li>
+<li>$x_i + l_i \le x_{i+1}$ for all $i$</li>
+</ol>
+<p>Let us define the set of all possible allocations as $\mathbb{P}$.</p>
+<p>We are interested in measuring the fragmentation of an allocation, though what 'fragmentation' is
+exactly has yet to be defined. For now, let us simply consider fragmentation to be a measure that
+assigns some value between 0 and 1 to any allocation, i.e a function $\phi$ with</p>
+<p>$$\phi: \mathbb{P} \to [0,1]$$</p>
+<p>where a placement $P$ is considered to be <em>maximally fragmented</em> if $\phi(P)=1$ and <em>minimally
+fragmented</em> when $\phi(P)=0$.</p>
+<p>While it is likely possible to define $\phi$ in terms of the allocations, it seemed easier to me to
+think in terms of the free space around these allocations, i.e the available memory. A placement $P$
+leaves a set of $n+1$ free spaces ${f_i}_{i=1}^{n+1}$, where</p>
+<p>$$ f_1 = \lvert x_1 - 0 \rvert, \quad f_2 = \lvert x_2 - (x_1 + l_1) \rvert, \quad ..., \quad f_{n+1} = \lvert M - (x_n + l_n) \rvert $$</p>
+<p>We can also define the total free space available after an allocation to be $F = \sum_{i=1}^{n+1}
+f_i$.</p>
+<p>Note that in my definitions, there is <em>always</em> $n+1$ free spaces, even if two allocations are
+contiguous - in that case, the free space between them is defined to be zero. </p>
+<p>So under these defintions, when would be consider a placement $P$ to be minimally fragmented? To me,
+it seems clear that this is when all the allocations are contiguous in memory, leaving one big free
+space. To put it concretely, when there is some $j$ such that $f_j = F$ and $f_i = 0$ whenever $i
+\ne j$.</p>
+<p>Conversely, I would consider a placement to be maximally fragmented when the free spaces are all the
+same size, i.e $f_i = \frac{F}{n+1}$ for all $i$. Note that it is of course possible for the amount
+of free space to not be divisible by the number of spaces, but I am ignoring this case to keep
+things simple.</p>
+<p>Given this setup, I propose the following measure of fragmentation, loosely based on the concept of
+statistical variance:</p>
+<p>$$ \phi(A) = 1 - \left( \frac{1}{F} \right) \left(\frac{n+1}{\sqrt{n(n+1)}} \right) \sqrt{\sum_{i=1}^{n+1} \left(f_i - \frac{F}{n+1}\right)^2 }$$</p>
+<p>It is easily seen that this measure obeys the heuristics laid out above.</p>
+<p>I took inspiriation for this formula from Adam Sawicki's often-referenced <a href="https://asawicki.info/news_1757_a_metric_for_memory_fragmentation">blog
+post</a>, &quot;A Metric for Memory
+Fragmentation&quot;, where he defines something similar. He proposes many 'desirable properties' for a
+fragmentation metric, even though the metric he proposes does meet all of them. Namely, the metric
+he proposes never actually achieves $\phi(A) = 1$, despite it being demonstrably possible.
+Furthermore, he asserts that the metric should not depend on the number of allocations made. I
+disagree - if an allocator has made more, smaller, allocations to achieve the same free memory
+layout, then it has performed better. After all, the whole point of measuring memory fragmentation
+is to assess the performance of one allocator versus another. </p>
+
+        </section>
+
+        
+
+    </article>
+</main>
+
+
+        
+            <hr>
+            <center><small>Copyright © 2023 Jack W R Fuller. All rights reserved.</small></center>
+        
+    </div>
+</body>
+
+</html>
